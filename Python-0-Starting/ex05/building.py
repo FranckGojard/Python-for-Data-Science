@@ -1,5 +1,6 @@
 import sys
 
+
 def countText(av1: str, my_dict: dict) -> dict:
     """
     Compte différents types de caractères dans une chaîne donnée et met à jour le dictionnaire fourni.
@@ -26,6 +27,7 @@ def countText(av1: str, my_dict: dict) -> dict:
             my_dict["nbSpace"] += 1
     return (my_dict)
 
+
 def printResult(my_dict: dict):
     """
     Affiche les résultats de l'analyse du texte stockés dans le dictionnaire fourni.
@@ -40,6 +42,7 @@ def printResult(my_dict: dict):
     print(f"{my_dict['nbPonctuation']} punctuation marks")
     print(f"{my_dict['nbSpace']} spaces")
     print(f"{my_dict['nbDigits']} digits")
+
 
 def main():
     """
@@ -68,6 +71,7 @@ def main():
             av1 = input("What is the text to count?\n")
         my_dict = countText(av1, my_dict)
         printResult(my_dict)
+
 
 if __name__ == "__main__":
     main()
