@@ -2,12 +2,22 @@ import sys
 
 
 def checkString(element: str) -> bool:
+    """
+    La fonction prend une chaîne element et renvoie
+    True si elle ne contient que des caractères
+    alphanumériques, sinon False.
+    """
     tmp: str = element
     tmp = tmp.replace(" ", "")
     return tmp.isalnum()
 
 
-def dictMorse() -> dict:
+def dictMorse(argv: str) -> dict:
+    """
+    La fonction prend une chaîne argv
+    et renvoie une chaîne traduite en Morse
+    à partir de argv.
+    """
     morse_dict = {
         'A': '.-', 'B': '-...', 'C': '-.-.', 'D': '-..', 'E': '.', 'F': '..-.',
         'G': '--.', 'H': '....', 'I': '..', 'J': '.---', 'K': '-.-', 'L': '.-..',
@@ -18,7 +28,12 @@ def dictMorse() -> dict:
         '5': '.....', '6': '-....', '7': '--...', '8': '---..', '9': '----.',
         ' ': '/'
     }
-    return morse_dict
+    result = ""
+    txt = argv.upper()
+    for c in txt:
+        if c in morse_dict:
+            result += morse_dict[c] + " "
+    return result
 
 
 def main():
@@ -31,9 +46,9 @@ def main():
     except AssertionError as e:
         print(e)
         exit(1)
-
-    morse_dict = dictMorse()
-    print(ac)
+    result = ""
+    result = dictMorse(sys.argv[1])
+    print(result)
 
 
 if __name__ == "__main__":
