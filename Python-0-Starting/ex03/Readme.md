@@ -1,30 +1,32 @@
-## **README - ex03**
+# Ex03 - NULL Not Found
 
-### **Description**
-Ce programme en Python utilise la fonction `NULL_not_found` pour identifier et afficher des objets considérés comme "nuls" ou "faux" en Python. La fonction retourne `0` si un objet "nul" est trouvé, sinon `1`.
+## Sujet
 
-### **Fichiers**
-- **NULL_not_found.py** : Contient la fonction `NULL_not_found`.
-- **tester.py** : Teste la fonction avec différents objets.
+Le but de cet exercice est d'ecrire une fonction qui reconnait plusieurs valeurs
+"nulles" ou "vides" en Python.
 
-### **Fonctionnalités**
-La fonction `NULL_not_found` vérifie si l'objet est considéré comme "nul" ou "faux" :
-- `None` : Affiche "Nothing".
-- `NaN` (float) : Affiche "Cheese".
-- `0` (int) : Affiche "Zero".
-- Chaîne vide (`''`) : Affiche "Empty".
-- `False` : Affiche "Fake".
+Fichier a rendre :
 
-Si l'objet ne correspond à aucun des cas ci-dessus, la fonction affiche "Type not Found" et retourne `1`. Sinon, elle retourne `0`.
+- `NULL_not_found.py`
 
-### **Exécution**
-Pour exécuter le programme :
-```bash
-python3 tester.py
+Prototype demande :
+
+```python
+def NULL_not_found(object: any) -> int:
 ```
 
-### **Exemple de sortie**
-```bash
+Valeurs testees :
+
+- `None`
+- `float("NaN")`
+- `0`
+- `''`
+- `False`
+- une valeur non reconnue
+
+## Sortie Attendue
+
+```text
 Nothing: None <class 'NoneType'>
 Cheese: nan <class 'float'>
 Zero: 0 <class 'int'>
@@ -32,4 +34,74 @@ Empty: <class 'str'>
 Fake: False <class 'bool'>
 Type not Found
 1
+```
+
+## Retours Attendus
+
+- Retourner `0` si la valeur est reconnue.
+- Retourner `1` si la valeur n'est pas reconnue.
+
+## Notions Apprises
+
+- `None` represente l'absence de valeur.
+- `False` est un booleen.
+- `''` est une chaine vide.
+- `0` est un entier.
+- `NaN` signifie `Not a Number`.
+- `==` compare les valeurs.
+- `is` compare l'identite de l'objet en memoire.
+
+## Point Special Sur NaN
+
+`NaN` est un cas particulier : il n'est egal a rien, meme pas a lui-meme.
+
+Donc :
+
+```python
+nan == nan
+```
+
+donne `False`.
+
+Et :
+
+```python
+nan != nan
+```
+
+donne `True`.
+
+Cette particularite permet de detecter `NaN` sans import supplementaire.
+
+## Difference Entre == Et is
+
+`==` compare le contenu :
+
+```python
+[1, 2] == [1, 2]
+```
+
+donne `True`.
+
+`is` compare si deux noms pointent vers exactement le meme objet.
+
+On utilise souvent `is` pour les singletons Python :
+
+```python
+object is None
+object is False
+```
+
+## Test
+
+Depuis la racine du projet :
+
+```bash
+python3 Python-0-Starting/ex03/tester.py | cat -e
+```
+
+Verifier aussi que le fichier seul n'affiche rien :
+
+```bash
+python3 Python-0-Starting/ex03/NULL_not_found.py | cat -e
 ```

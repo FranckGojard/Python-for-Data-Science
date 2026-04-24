@@ -1,38 +1,60 @@
-## **README - ex00**
+# Ex00 - First Python Script
 
-### **Description**
-Ce programme en Python illustre la manipulation de différentes structures de données : liste, tuple, ensemble et dictionnaire. Il met en évidence les modifications possibles sur ces structures et leur comportement en mémoire.
+## Sujet
 
-### **Fichiers**
-- **Hello.py** : Contient le code principal du programme.
+Le but de cet exercice est de modifier quatre objets Python pour afficher les
+salutations demandées par le sujet.
 
-### **Explication du code**
-1. **Déclaration de quatre structures de données différentes** :
-   - Une **liste** (`ft_list`)
-   - Un **tuple** (`ft_tuple`)
-   - Un **ensemble** (`ft_set`)
-   - Un **dictionnaire** (`ft_dict`)
+Fichier a rendre :
 
-2. **Modification des structures** :
-   - La liste est modifiable, donc l'élément d'index 1 est remplacé.
-   - Les tuples étant immuables, une nouvelle instance est créée avec une nouvelle valeur.
-   - L'ensemble est recréé avec une nouvelle valeur.
-   - La valeur associée à la clé "Hello" dans le dictionnaire est modifiée.
+- `Hello.py`
 
-3. **Affichage du résultat après modification**.
+Objets de depart :
 
-### **Exécution**
-Pour exécuter le programme, utilisez la commande suivante dans un terminal :
-```bash
-python3 Hello.py
+```python
+ft_list = ["Hello", "tata!"]
+ft_tuple = ("Hello", "toto!")
+ft_set = {"Hello", "tutu!"}
+ft_dict = {"Hello": "titi!"}
 ```
 
-### **Résultat attendu**
-Après exécution, le programme affichera :
-```python
+Sortie attendue :
+
+```text
 ['Hello', 'World!']
 ('Hello', 'France!')
 {'Hello', 'Paris!'}
 {'Hello': '42Paris!'}
 ```
 
+## Notions Apprises
+
+- Une `list` est modifiable.
+- Un `tuple` est immuable : on ne modifie pas directement ses elements.
+- Un `set` n'a pas d'ordre garanti et ne s'utilise pas avec des index.
+- Un `dict` fonctionne avec des paires cle/valeur.
+- Python commence les index a `0`.
+- `print` ajoute un retour a la ligne par defaut.
+
+## Points Importants
+
+Pour modifier le deuxieme element d'une liste, on utilise l'index `1`.
+
+Un `tuple` ne peut pas etre modifie element par element. Pour changer son
+contenu, on remplace l'objet par un nouveau tuple.
+
+Un `set` peut s'afficher dans un ordre different selon les executions. Ce n'est
+pas forcement une erreur.
+
+Pour modifier une valeur dans un dictionnaire, on utilise sa cle.
+
+## Test
+
+Depuis la racine du projet :
+
+```bash
+python3 Python-0-Starting/ex00/Hello.py | cat -e
+```
+
+`cat -e` permet de voir les fins de ligne avec `$` et de reperer les espaces
+en trop.

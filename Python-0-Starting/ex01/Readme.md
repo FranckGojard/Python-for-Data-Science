@@ -1,37 +1,73 @@
-## **README - ex01**
+# Ex01 - First Use Of Package
 
-### **Description**
-Ce programme en Python utilise les modules `datetime` et `time` pour récupérer et afficher des informations temporelles.
+## Sujet
 
-### **Fichiers**
-- **format_ft_time.py** : Contient le code principal du programme.
+Le but de cet exercice est d'afficher le temps actuel dans un format precis.
 
-### **Explication du code**
-1. **Importation des modules** :
-   - `datetime` et `time` sont importés pour manipuler le temps et les dates.
+Fichier a rendre :
 
-2. **Récupération du temps actuel** :
-   - `time()` est utilisé pour obtenir le nombre de secondes écoulées depuis le 1er janvier 1970 (l'epoch).
-   - `datetime.now()` récupère la date et l'heure actuelles.
+- `format_ft_time.py`
 
-3. **Formatage de la date** :
-   - `strftime('%b %d %Y')` formate la date sous la forme : `Mois Jour Année` (exemple : `Mar 04 2025`).
+Le programme doit afficher deux lignes :
 
-4. **Affichage des résultats** :
-   - La première ligne du `print` affiche :
-     - Le nombre de secondes écoulées depuis l'epoch sous forme décimale (`timeEpoch`).
-     - La même valeur en notation scientifique (`f"{timeEpoch:.2e}"`), qui permet de mieux représenter de grands nombres sous un format compact.
-   - La seconde ligne affiche la date actuelle au format abrégé avec le mois (trois lettres), le jour et l'année.
-
-### **Exécution**
-Pour exécuter le programme, utilisez la commande suivante dans un terminal :
-```bash
-python3 format_ft_time.py
+```text
+Seconds since January 1, 1970: 1,666,355,857.3622 or 1.67e+09 in scientific notation
+Oct 21 2022
 ```
 
-### **Exemple de sortie**
-```bash
-Seconds since January 1, 1970: 1700000000.123456 or 1.70e+09 in scientific notation
-Mar 04 2025
+Les valeurs changent selon le moment ou le programme est lance.
+
+## Notions Apprises
+
+- Un module est du code Python deja ecrit que l'on peut importer.
+- `time()` permet de recuperer le nombre de secondes depuis le 1 janvier 1970.
+- Cette date de reference s'appelle l'Epoch Unix.
+- `datetime.now()` permet de recuperer la date et l'heure actuelles.
+- Une f-string permet d'inserer et de formatter des variables dans une chaine.
+- `strftime` permet de formatter une date.
+
+## Formats Utiles
+
+Dans une f-string :
+
+```python
+{value:,}
 ```
 
+Affiche un nombre avec des separateurs de milliers.
+
+```python
+{value:.2e}
+```
+
+Affiche un nombre en notation scientifique avec deux chiffres apres le point.
+
+Avec `strftime` :
+
+```python
+%b
+```
+
+Affiche le mois abrege, par exemple `Jan`, `Feb`, `Mar`, `Apr`.
+
+## Points Importants
+
+La notation scientifique permet d'ecrire un tres grand nombre de maniere plus
+compacte.
+
+Exemple :
+
+```text
+1.67e+09 = 1.67 * 10^9
+```
+
+`==` et les classes ne sont pas encore le sujet ici : pour cet exercice, il faut
+surtout savoir importer les bons outils et formatter l'affichage.
+
+## Test
+
+Depuis la racine du projet :
+
+```bash
+python3 Python-0-Starting/ex01/format_ft_time.py | cat -e
+```

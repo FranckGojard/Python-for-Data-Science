@@ -1,26 +1,32 @@
-### **README - ex02**
+# Ex02 - First Function Python
 
-#### **Description**
-Ce programme en Python utilise la fonction `all_thing_is_obj` pour identifier et afficher le type d'un objet passé en argument. La fonction retourne toujours `42`.
+## Sujet
 
-#### **Fichiers**
-- **find_ft_type.py** : Contient la fonction `all_thing_is_obj`.
-- **tester.py** : Teste la fonction avec différents types d'objets.
+Le but de cet exercice est d'ecrire une fonction qui affiche le type d'un objet
+et retourne toujours `42`.
 
-#### **Fonctionnalités**
-- La fonction `all_thing_is_obj` affiche un message spécifique en fonction du type de l'objet :
-  - **Liste**, **Tuple**, **Set**, **Dictionnaire** : Affiche le type de l'objet.
-  - **Chaîne de caractères (str)** : Affiche un message personnalisé.
-  - **Entier (int)** : Affiche "Type not found".
-- La fonction retourne toujours `42`.
+Fichier a rendre :
 
-#### **Exécution**
-Pour exécuter le programme :
-```bash
-python3 tester.py
+- `find_ft_type.py`
+
+Prototype demande :
+
+```python
+def all_thing_is_obj(object: any) -> int:
 ```
-#### **Exemple de sortie**
-```bash
+
+Le fichier `tester.py` appelle cette fonction avec plusieurs objets :
+
+- une liste
+- un tuple
+- un set
+- un dictionnaire
+- des chaines de caracteres
+- un entier
+
+## Sortie Attendue
+
+```text
 List : <class 'list'>
 Tuple : <class 'tuple'>
 Set : <class 'set'>
@@ -29,4 +35,35 @@ Brian is in the kitchen : <class 'str'>
 Toto is in the kitchen : <class 'str'>
 Type not found
 42
+```
+
+## Notions Apprises
+
+- `def` sert a definir une fonction.
+- Un parametre est une valeur recue par une fonction.
+- `print` affiche dans le terminal.
+- `return` renvoie une valeur a celui qui appelle la fonction.
+- Si une fonction ne retourne rien explicitement, Python retourne `None`.
+- `type(...)` permet de connaitre le type d'un objet.
+- `if`, `elif`, `else` permettent de gerer plusieurs cas.
+
+## Point Important
+
+Le fichier `find_ft_type.py` ne doit rien afficher quand il est lance seul.
+
+La fonction affiche les messages uniquement quand elle est appelee par le
+`tester.py`.
+
+## Test
+
+Depuis la racine du projet :
+
+```bash
+python3 Python-0-Starting/ex02/tester.py | cat -e
+```
+
+Verifier aussi que le fichier seul n'affiche rien :
+
+```bash
+python3 Python-0-Starting/ex02/find_ft_type.py | cat -e
 ```
