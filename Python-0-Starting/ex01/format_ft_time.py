@@ -1,11 +1,8 @@
-from time import time
 from datetime import datetime
+import time
 
-ft_time = time()
-ft_date = datetime.now()
-month = ft_date.strftime('%b')
+sec = time.time()
+date = datetime.now().strftime("%b %d %Y")
 
-print(f"Seconds since January 1, 1970: {ft_time:,} \
-or {ft_time:.2e} in scientific notation")
-
-print(month, ft_date.day, ft_date.year)
+print (f"Seconds since January 1, 1970: {sec:,.4f} or {sec:.2e} in scientific notation")
+print (date)
