@@ -35,7 +35,7 @@ Règles strictes :
 
 ## Avancement (mis à jour par Claude à chaque étape importante ; dire « mets à jour le CLAUDE.md » en fin de session)
 
-**Dernière mise à jour : 2026-09-30**
+**Dernière mise à jour : 2026-10-13**
 
 - Module 0 (Starting) : terminé.
 - Module 1 (Array) : **en cours**. Les dossiers ex01 à ex05 existent, avec un Readme.md « À compléter ».
@@ -44,11 +44,17 @@ Règles strictes :
     - Points de style restants pour flake8 : prototype de `give_bmi` trop long (E501), 2 lignes vides après l'import, `try :` avec espace et `return []` sans retour à la ligne final.
     - `test_errors.py` (dans ex00) teste tous les cas d'erreur. Le `tester.py` du sujet est resté intact. `give_bmi(5, 6)` affiche le message de Python et non un message maison : choix laissé tel quel.
     - Concepts vus : numpy vectorisé (pas de boucle), `.tolist()`, comparaison qui vaut `True`/`False`, `isinstance`, `raise` / `except ... as`, `ValueError` vs `TypeError`, `return []` vs `None`.
-  - ex01 à ex05 : pas commencés (dossiers avec un Readme « À compléter »).
+  - ex01 (2D array, `array2D.py`, fonction `slice_me`) : **code, docstring, Readme.md et `test_errors.py` terminés** (2026-10-13). Reste flake8, à faire par l'utilisateur.
+    - 5 vérifications d'erreurs écrites par l'utilisateur, du général au précis : `family` est une liste, `start`/`end` sont des `int`, chaque ligne est une liste, lignes de même taille, valeurs `int`/`float`. Cas limites `[]` et `[[]]` laissés passer (documenté dans le Readme).
+    - Points de style restants pour flake8 : 2 lignes vides après l'import, `try :`, `except (...) as error :` et `print (error)` avec espace en trop, ligne du `raise` sur les valeurs trop longue.
+    - Concepts vus : liste de listes, `shape`, positions à partir de 0, slicing `[début:fin]` (fin exclue), `.tolist()`, boucle imbriquée, méthode « une règle = un `if not` + un `raise` » dans l'ordre du général au précis.
+    - L'utilisateur avait besoin que le slicing soit expliqué depuis zéro : partir des indices d'une liste simple avant les tableaux 2D.
+  - ex02 à ex05 : pas commencés (dossiers avec un Readme « À compléter »).
 - Modules 2, 3, 4 : pas commencés.
 
 ## Préférences de l'utilisateur (à respecter)
-- Avancer **une petite étape à la fois**, avec une explication simple, sans aller trop vite ni trop loin.
+- Avancer **une petite étape à la fois**, avec une explication simple, sans aller trop vite ni trop loin. Ne jamais supposer qu'un terme (slicing, shape...) est connu : l'expliquer d'abord avec un exemple minimal. Dire le « pourquoi » de chaque consigne.
+- Pour la gestion d'erreurs, il veut apprendre la méthode pour la refaire seul : une règle à la fois, avec le message anglais et le type d'erreur (`TypeError` si le type est mauvais, `ValueError` si la valeur est mauvaise).
 - Dire quoi faire et pourquoi, **sans donner le code** tant qu'il ne le demande pas explicitement. S'il le demande, donner la réponse avec une explication courte.
 - Réponses courtes, pas de longs blocs. Ne pas lui demander de tester dans un terminal Python interactif : il lance seulement `py tester.py`.
 - Il vient du C : les analogies avec le C l'aident.
@@ -57,6 +63,6 @@ Règles strictes :
 - Le venv du projet est dans `venv/` à la racine (numpy installé). Le Readme de chaque exercice suit le style de `Python-0-Starting/ex04/Readme.md` et `ex06/Readme.md`.
 
 ## Prochaine étape
-Passer à l'exercice 01 (`array2D.py`, module Array) : lire le sujet, le reformuler en français, donner le code fourni, puis le laisser coder.
+Passer à l'exercice 02 (module Array) : lire le sujet dans `Subjects/en.subject (1).pdf`, le reformuler en français, donner le code fourni, puis le laisser coder.
 
-À faire aussi : commiter et pousser (CLAUDE.md, Readme.md et give_bmi.py), et passer flake8 sur ex00.
+À faire aussi : commiter et pousser les fichiers de ex00 et ex01, et passer flake8 sur ex00 et ex01.
