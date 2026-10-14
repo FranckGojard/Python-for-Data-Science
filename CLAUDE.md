@@ -8,7 +8,8 @@ L'utilisateur est étudiant à l'École 42 et débutant en Python. Il suit une �
 - `en.subject (3).pdf` : module 3, Oriented Object Programming
 - `en.subject (4).pdf` : module 4, Data Oriented Design
 
-Le code est dans `Python-0-Starting/`, `Python-1-Array/`, etc. (un dossier `exNN/` par exercice).
+Le code est dans `Python-0-Starting/`, `Python-1-Array/`, `Python-2-DataTable/`,
+etc. (un dossier `exNN/` par exercice).
 
 ## Rôle de Claude : prof/guide, pas correcteur
 Priorité à la pédagogie sur la rapidité. Répondre en français, niveau débutant.
@@ -23,8 +24,8 @@ Déroulement pour chaque exercice :
 
 Règles strictes :
 - Ne jamais donner la solution complète spontanément.
-- Toujours vérifier la compréhension avant de passer à la suite.
 - Signaler les erreurs de style et les mauvaises pratiques, même si le code marche.
+- Ne pas terminer les messages par une question de vérification de compréhension. L'utilisateur veut comprendre ce qu'il fait et posera lui-même ses questions quand il en a besoin.
 
 ## Règles du sujet (rappel)
 - Python 3.10, imports explicites (`import numpy as np`), pas de variable globale.
@@ -35,7 +36,7 @@ Règles strictes :
 
 ## Avancement (mis à jour par Claude à chaque étape importante ; dire « mets à jour le CLAUDE.md » en fin de session)
 
-**Dernière mise à jour : 2026-10-13**
+**Dernière mise à jour : 2026-10-14 (session 4)**
 
 - Module 0 (Starting) : terminé.
 - Module 1 (Array) : **en cours**. Les dossiers ex01 à ex05 existent, avec un Readme.md « À compléter ».
@@ -49,7 +50,28 @@ Règles strictes :
     - Points de style restants pour flake8 : 2 lignes vides après l'import, `try :`, `except (...) as error :` et `print (error)` avec espace en trop, ligne du `raise` sur les valeurs trop longue.
     - Concepts vus : liste de listes, `shape`, positions à partir de 0, slicing `[début:fin]` (fin exclue), `.tolist()`, boucle imbriquée, méthode « une règle = un `if not` + un `raise` » dans l'ordre du général au précis.
     - L'utilisateur avait besoin que le slicing soit expliqué depuis zéro : partir des indices d'une liste simple avant les tableaux 2D.
-  - ex02 à ex05 : pas commencés (dossiers avec un Readme « À compléter »).
+  - ex02 (load my image, `load_image.py`, fonction `ft_load`) : **code, docstring, Readme.md et `test_errors.py` terminés** (2026-10-14). Reste flake8, à faire par l'utilisateur.
+    - Charge une image jpg/jpeg avec Pillow (`Image.open`), convertit en tableau numpy, affiche le shape, retourne le tableau. Pas de `main()` (même raisonnement que ex00/ex01 : le fichier à rendre ne contient que la fonction).
+    - 3 vérifications d'erreurs : `path` est une `str` (`TypeError`), extension `.jpg`/`.jpeg` via `path.endswith((".jpg", ".jpeg"))` (`ValueError`), fichier existe (`FileNotFoundError`, levée automatiquement par `Image.open()`, pas besoin d'un `if`/`raise` manuel — juste l'ajouter à l'`except`).
+    - Concepts vus : image = tableau 3D (lignes, colonnes, canaux RGB), Pillow (`from PIL import Image`), `.endswith()` avec un tuple de suffixes (piège : le 2e argument positionnel n'est pas un autre suffixe mais un indice de début), chemins relatifs calculés depuis le dossier de lancement (pas l'emplacement du script), cache `__pycache__` qui peut faire tourner une vieille version du code.
+    - Venv du projet créé à cette session (`venv/` à la racine, numpy + pillow installés).
+  - ex03 (zoom on me, `load_image.py` + `zoom.py`) : **code, docstrings, Readme.md terminés** (2026-10-14). Reste flake8.
+    - `zoom()` decoupe un carre 400x400 centre sur l'image, sur un seul canal (slicing 3D avec virgules : `image[y0:y1, x0:x1, 0:1]`). Affichage avec `matplotlib.pyplot` (`plt.imshow(..., cmap="gray")` + `plt.show()`), venv complete avec `matplotlib` installe.
+    - `zoom.py` a un `main()` (contrairement a `load_image.py`) car il execute du code, pas juste des `def`.
+    - `pip` est casse dans le venv (mauvais shebang) : utiliser `python3 -m pip install ...` a la place.
+    - Piege vu : `new_image == None` sur un tableau numpy plante (`ValueError: truth value of an array is ambiguous`, comparaison element par element) ; utiliser `is None`.
+    - **Changement important fait a la demande de l'utilisateur sur tout le module (ex00 a ex03)** : retrait de tous les `return []` dans les blocs `except`. Le sujet n'impose pas de valeur de retour precise en cas d'erreur, seulement qu'aucune exception ne sorte et qu'un message clair soit affiche. Les fonctions renvoient donc `None` implicitement en cas d'erreur (plus de `return` dans les `except`). Les Readme de ex00/ex01/ex02 ont ete mis a jour en consequence. Pour `zoom()`, le `return new_image` a du etre deplace a l'interieur du `try` (il etait apres le `try`/`except`, ce qui aurait cause un `NameError` si l'exception se declenchait). Dans `zoom.py::main()`, verification du retour de `zoom()` avec `if new_image is None: return` avant d'utiliser le resultat.
+  - ex04 (rotate me, `load_image.py` + `rotate.py`) : **code, docstrings, Readme.md terminés** (2026-10-14). Reste flake8.
+    - `rotate()` transpose un tableau 3D a la main (interdiction du sujet d'utiliser `.T`/`np.transpose()`) : boucle imbriquee sur les indices (`range(height)`/`range(width)`, pas sur les valeurs), ecrit `new_image[j][i] = image[i][j][0]` dans un nouveau tableau cree avec `np.zeros((largeur, hauteur))`.
+    - Reutilise `zoom()` de `ex03` pour le decoupage avant transposition.
+    - Gestion d'erreurs : `image` doit etre un `ndarray` (`TypeError`) et avoir `ndim == 3` (`ValueError`, sinon `image[i][j][0]` plante si `image` est deja en 2D).
+    - Concepts vus : difference entre boucler sur les valeurs (`for x in liste`) et sur les indices (`for i in range(len(liste))`) pour pouvoir lire ET ecrire a une position precise ; `image[i][j]` est une liste a 1 element `[167]` tant qu'on ne prend pas `[0]` dedans (sinon `ValueError: setting an array element with a sequence`) ; `.ndim` (nombre de dimensions) different de `.shape` (taille de chaque dimension) ; `np.zeros()` cree des `float` par defaut.
+  - ex05 (pimp my image, `load_image.py` + `pimp_image.py`) : **code, docstrings, Readme.md terminés** (2026-10-14). Reste flake8. **Module Array (ex00 à ex05) termine.**
+    - 5 filtres (`ft_invert`, `ft_red`, `ft_green`, `ft_blue`, `ft_grey`), chacun limite a certains operateurs par le sujet (`=`/`+`/`-`/`*` pour invert, `=`/`*` pour red, `=`/`-` pour green, `=` pour blue, `=`/`/` pour grey). Chaque fonction affiche son resultat avec `plt.imshow`/`plt.show` (le sujet l'exige explicitement : "you must display the images transformed", sur une page du PDF qu'il a fallu repérer apres coup).
+    - Bug trouve et corrige par l'utilisateur lui-meme (avec aide) : les fonctions modifiaient `array` en place, et `tester.py` appelle les 5 fonctions a la suite sur le **meme** tableau → les filtres s'accumulaient (ex: apres `ft_red`, l'image etait deja quasi noire pour les filtres suivants). Fix : `array = array.copy()` en debut de chaque fonction qui fait `array[:, :, i] = ...`.
+    - `ft_grey` utilise `array.sum(axis=2)` pour contourner l'interdiction de `+` (c'est une fonction, pas l'operateur).
+    - `show_filters.py` (bonus, pas demande par le sujet) : affiche les 6 versions cote a cote dans une seule fenetre pour comparer.
+    - Pas de gestion d'erreurs sur cet exercice : le sujet ne la demande pas explicitement, contrairement aux precedents.
 - Modules 2, 3, 4 : pas commencés.
 
 ## Préférences de l'utilisateur (à respecter)
@@ -61,8 +83,42 @@ Règles strictes :
 - Il ne veut pas parler de flake8 pour l'instant, il le fera lui-même à la fin.
 - Les messages d'erreur et les docstrings sont en anglais, courts. Lui donner le texte des messages à chaque fois.
 - Le venv du projet est dans `venv/` à la racine (numpy installé). Le Readme de chaque exercice suit le style de `Python-0-Starting/ex04/Readme.md` et `ex06/Readme.md`.
+- Mise en page markdown claire dans les réponses (titres, listes, tableaux, blocs de code) : il a reproché un message trop plat/compressé. "Court" ne veut pas dire sacrifier la clarté de la mise en forme.
 
 ## Prochaine étape
-Passer à l'exercice 02 (module Array) : lire le sujet dans `Subjects/en.subject (1).pdf`, le reformuler en français, donner le code fourni, puis le laisser coder.
+Module Array (module 1) termine (ex00 a ex05).
 
-À faire aussi : commiter et pousser les fichiers de ex00 et ex01, et passer flake8 sur ex00 et ex01.
+Module 2 (DataTable) : structure de dossiers creee le 2026-10-14
+(`Python-2-DataTable/ex00` a `ex03`), avec le squelette donne par le sujet
+dans `ex00/load_csv.py` + `ex00/tester.py`. ex01 a ex03 n'ont que leur
+Readme « À compléter ». Resume du module (4 exercices, utilise pandas) :
+- ex00 "Load my Dataset" : `load_csv.py`, fonction `load(path) -> Dataset`
+  (type a adapter selon la lib utilisee), doit gerer les erreurs et
+  retourner `None` si le chemin est mauvais.
+- ex01 "draw my country" : `load_csv.py` + `aff_life.py`, charge
+  `life_expectancy_years.csv`, affiche un graphe (titre + legendes) pour le
+  pays du campus de l'utilisateur (42 ... a demander lequel).
+- ex02 "compare my country" : `load_csv.py` + `aff_pop.py`, charge
+  `population_total.csv`, compare le pays du campus a un autre pays au choix,
+  annees 1800 a 2050.
+- ex03 "draw my year" : `load_csv.py` + `projection_life.py`, charge
+  `income_per_person_gdppercapita_ppp_inflation_adjusted.csv` et
+  `life_expectancy_years.csv`, affiche la projection de l'esperance de vie
+  vs PIB pour l'annee 1900.
+
+**Important : donnees manquantes.** Le sujet demande d'utiliser des
+donnees de gapminder.org (licence CC-BY), mais les fichiers CSV
+(`life_expectancy_years.csv`, `population_total.csv`,
+`income_per_person_gdppercapita_ppp_inflation_adjusted.csv`) ne sont pas
+dans le projet. Un dossier vide `Python-2-DataTable/csv/` a ete cree pour
+les recevoir (meme logique que `Python-1-Array/jpeg/` pour les images),
+mais l'utilisateur doit les telecharger lui-meme depuis gapminder.org avant
+de pouvoir tester `ex00`. Les chemins dans les `tester.py` pointent vers
+`../csv/nom_du_fichier.csv`.
+
+Prochaine action : demander a l'utilisateur de telecharger les 3 CSV dans
+`Python-2-DataTable/csv/`, puis lire le sujet dans
+`Subjects/en.subject (2).pdf`, le reformuler en français, et commencer
+`ex00`.
+
+À faire aussi : commiter et pousser les fichiers de ex00 à ex05 du module Array, et passer flake8 dessus.

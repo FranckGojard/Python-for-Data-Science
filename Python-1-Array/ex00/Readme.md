@@ -99,7 +99,10 @@ Un BMI egal a la limite donne `False`, car il n'est pas au-dessus.
 ## Gestion des erreurs
 
 Aucune exception ne doit sortir de la fonction. En cas d'erreur, le message est
-affiche avec `print` et la fonction renvoie une liste vide `[]`.
+affiche avec `print`, et la fonction s'arrete sans valeur de retour explicite
+(elle renvoie `None`, comme toute fonction sans `return`). Le sujet n'impose
+pas de valeur de retour precise en cas d'erreur, seulement qu'aucune exception
+ne sorte et qu'un message clair soit affiche.
 
 Cas geres par `give_bmi` :
 
@@ -147,7 +150,7 @@ python3 -c "from give_bmi import apply_limit; print(apply_limit([22.5], 'abc'))"
 python3 -c "from give_bmi import apply_limit; print(apply_limit(5, 26))"
 ```
 
-Chaque test doit afficher un message d'erreur puis `[]`, sans traceback.
+Chaque test doit afficher un message d'erreur puis `None`, sans traceback.
 
 ## Verification des docstrings
 

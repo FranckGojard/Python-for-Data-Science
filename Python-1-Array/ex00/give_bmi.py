@@ -16,7 +16,6 @@ def give_bmi(height: list[int | float], weight: list[int | float]) -> list[int |
         return result.tolist()
     except (ValueError, TypeError) as error:
         print(error)
-        return[]
 
 
 def apply_limit(bmi: list[int | float], limit: int) -> list[bool]:
@@ -34,4 +33,3 @@ def apply_limit(bmi: list[int | float], limit: int) -> list[bool]:
         return result.tolist()
     except TypeError as error:
         print(error)
-        return []

@@ -83,7 +83,10 @@ ligne 3 : [1.88, 75.2]
 ## Gestion des erreurs
 
 Aucune exception ne doit sortir de la fonction. En cas d'erreur, le message est
-affiche avec `print` et la fonction renvoie une liste vide `[]`.
+affiche avec `print`, et la fonction s'arrete sans valeur de retour explicite
+(elle renvoie `None`, comme toute fonction sans `return`). Le sujet n'impose
+pas de valeur de retour precise en cas d'erreur, seulement qu'aucune exception
+ne sorte et qu'un message clair soit affiche.
 
 Les verifications sont faites du plus general au plus precis, car chaque
 verification suppose que la precedente est passee.
@@ -125,7 +128,7 @@ python3 test_errors.py
 ```
 
 `test_errors.py` teste des cas valides, tous les cas d'erreur et les cas
-limites. Chaque erreur doit afficher son message puis `[]`, sans traceback.
+limites. Chaque erreur doit afficher son message puis `None`, sans traceback.
 
 ## Verification de la docstring
 
