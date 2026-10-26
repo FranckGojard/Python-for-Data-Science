@@ -36,7 +36,7 @@ Règles strictes :
 
 ## Avancement (mis à jour par Claude à chaque étape importante ; dire « mets à jour le CLAUDE.md » en fin de session)
 
-**Dernière mise à jour : 2026-10-14 (session 4)**
+**Dernière mise à jour : 2026-10-26 (session 5)**
 
 - Module 0 (Starting) : terminé.
 - Module 1 (Array) : **en cours**. Les dossiers ex01 à ex05 existent, avec un Readme.md « À compléter ».
@@ -72,7 +72,15 @@ Règles strictes :
     - `ft_grey` utilise `array.sum(axis=2)` pour contourner l'interdiction de `+` (c'est une fonction, pas l'operateur).
     - `show_filters.py` (bonus, pas demande par le sujet) : affiche les 6 versions cote a cote dans une seule fenetre pour comparer.
     - Pas de gestion d'erreurs sur cet exercice : le sujet ne la demande pas explicitement, contrairement aux precedents.
-- Modules 2, 3, 4 : pas commencés.
+- Module 2 (DataTable) : **en cours**.
+  - venv et dossier `Python-2-DataTable/csv/` recrees le 2026-10-26 (avaient disparu entre les sessions, probablement machine reinitialisee). Venv : numpy, pillow, matplotlib, pandas installes. L'utilisateur a ajoute `life_expectancy_years.csv` dans `csv/`. Il manque encore `population_total.csv` (ex02) et `income_per_person_gdppercapita_ppp_inflation_adjusted.csv` (ex03), a demander/verifier quand on y arrivera.
+  - ex00 (Load my Dataset, `load_csv.py`, fonction `load`) : **code, docstring, Readme.md termines** (2026-10-26). Reste flake8.
+    - `pd.read_csv(path)` charge le CSV en `DataFrame`, `.shape` affiche les dimensions (`Loading dataset of dimensions (195, 302)`), retourne le dataset (pas juste le shape).
+    - 3 erreurs gerees : `path` pas une `str` (`TypeError`), extension differente de `.csv` (`ValueError`), fichier introuvable (`FileNotFoundError`, levee automatiquement par `pd.read_csv`). Retour `None` explicite (le sujet le demande litteralement, contrairement au module Array ou c'etait une convention).
+    - Erreur typique corrigee par l'utilisateur lui-meme : `pd.read_csv` sans parentheses (donnait la fonction, pas un DataFrame).
+    - Concepts vus : CSV, pandas/`DataFrame` vs "dataset" (terme generique), `import pandas as pd`, `.shape` sur un DataFrame, affichage automatique d'un DataFrame par `print()`.
+  - ex01 a ex03 : pas commences (dossiers crees avec Readme « À compléter », pas de squelette donne par le sujet pour ceux-la).
+- Modules 3, 4 : pas commencés.
 
 ## Préférences de l'utilisateur (à respecter)
 - Avancer **une petite étape à la fois**, avec une explication simple, sans aller trop vite ni trop loin. Ne jamais supposer qu'un terme (slicing, shape...) est connu : l'expliquer d'abord avec un exemple minimal. Dire le « pourquoi » de chaque consigne.
@@ -86,39 +94,16 @@ Règles strictes :
 - Mise en page markdown claire dans les réponses (titres, listes, tableaux, blocs de code) : il a reproché un message trop plat/compressé. "Court" ne veut pas dire sacrifier la clarté de la mise en forme.
 
 ## Prochaine étape
-Module Array (module 1) termine (ex00 a ex05).
+Passer a l'ex01 du module DataTable ("draw my country") : copier
+`load_csv.py` depuis `ex00` (meme pattern que `load_image.py` dans le
+module Array), creer `aff_life.py`, charger `life_expectancy_years.csv`
+(deja present dans `csv/`), et afficher le graphe d'esperance de vie pour
+le pays du campus de l'utilisateur (demander lequel si pas encore su).
+Pas de squelette/prototype donne par le sujet pour `aff_life.py`, juste
+une description + un graphe d'exemple (France).
 
-Module 2 (DataTable) : structure de dossiers creee le 2026-10-14
-(`Python-2-DataTable/ex00` a `ex03`), avec le squelette donne par le sujet
-dans `ex00/load_csv.py` + `ex00/tester.py`. ex01 a ex03 n'ont que leur
-Readme « À compléter ». Resume du module (4 exercices, utilise pandas) :
-- ex00 "Load my Dataset" : `load_csv.py`, fonction `load(path) -> Dataset`
-  (type a adapter selon la lib utilisee), doit gerer les erreurs et
-  retourner `None` si le chemin est mauvais.
-- ex01 "draw my country" : `load_csv.py` + `aff_life.py`, charge
-  `life_expectancy_years.csv`, affiche un graphe (titre + legendes) pour le
-  pays du campus de l'utilisateur (42 ... a demander lequel).
-- ex02 "compare my country" : `load_csv.py` + `aff_pop.py`, charge
-  `population_total.csv`, compare le pays du campus a un autre pays au choix,
-  annees 1800 a 2050.
-- ex03 "draw my year" : `load_csv.py` + `projection_life.py`, charge
-  `income_per_person_gdppercapita_ppp_inflation_adjusted.csv` et
-  `life_expectancy_years.csv`, affiche la projection de l'esperance de vie
-  vs PIB pour l'annee 1900.
+Rappel : `population_total.csv` (ex02) et
+`income_per_person_gdppercapita_ppp_inflation_adjusted.csv` (ex03) ne sont
+pas encore dans `csv/`, a demander a l'utilisateur le moment venu.
 
-**Important : donnees manquantes.** Le sujet demande d'utiliser des
-donnees de gapminder.org (licence CC-BY), mais les fichiers CSV
-(`life_expectancy_years.csv`, `population_total.csv`,
-`income_per_person_gdppercapita_ppp_inflation_adjusted.csv`) ne sont pas
-dans le projet. Un dossier vide `Python-2-DataTable/csv/` a ete cree pour
-les recevoir (meme logique que `Python-1-Array/jpeg/` pour les images),
-mais l'utilisateur doit les telecharger lui-meme depuis gapminder.org avant
-de pouvoir tester `ex00`. Les chemins dans les `tester.py` pointent vers
-`../csv/nom_du_fichier.csv`.
-
-Prochaine action : demander a l'utilisateur de telecharger les 3 CSV dans
-`Python-2-DataTable/csv/`, puis lire le sujet dans
-`Subjects/en.subject (2).pdf`, le reformuler en français, et commencer
-`ex00`.
-
-À faire aussi : commiter et pousser les fichiers de ex00 à ex05 du module Array, et passer flake8 dessus.
+À faire aussi : commiter et pousser les fichiers de ex00 à ex05 du module Array et ex00 du module DataTable, et passer flake8 dessus.
